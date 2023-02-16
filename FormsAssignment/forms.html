@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms to get information</title>
+</head>
+
+<body>
+    <div id="choices">
+        Enter your information?<br>
+
+        <input type="radio"  id="us" name="info" value="US">
+        <label for="us">US Phone Number</label><br>
+        <input type="radio" id="fr" name="info" value="FR">
+        <label for="fr">French Phone Number</label><br>
+        <input type="radio" id="ssn" name="info" value="SSN">
+        <label for="ssn">Social Security Number</label><br>
+    </div>
+   <div id="inp">
+    <label id="inp-label" for="number"></label>
+    <input type="text" id="forms"><br>
+    <button onclick="formatNums()">Enter</button>
+   </div>  
+   <div id="format"></div>
+   
+
+
+<script>
+
+    const choices = document.querySelectorAll("#choices info");
+    for(let i=0; i<choices.length; i++) {
+        choices[i].addEventListener("click", isChecked); 
+    }
+
+    function isChecked(event) {
+        const f = document.querySelector("#inp-label");
+        const n = document.querySelector("#forms");
+        const t = event.target;
+        switch(t.value) {
+            case "us":
+                f.innerHTML = "Us Phone Number";
+                n.placeholder = "(XXX) XXX-XXXX";
+                n.removeEventListener("keydown",fmtSS);
+                break;
+            case "fr":
+                f.innerHTML = "French Phone Number";
+                n.placeholder = "XX.XX.XX.XX.XX";
+                n.removeEventListener("keydown",fmtSS);
+                break;
+            case "ssn":
+                f.innerHTML = "US Social Security Number";
+                n.placeholder = "XXX-XX-XXXX";
+                n.removeEventListener("keydown",fmtSS);
+                break;
+        }
+    }
+
+    function formatNums() {
+        const f = document.querySelector("#format");
+        const n = document.querySelector("forms");
+        const rbts = document.querySelectorAll("#choices info");
+        for (let i=0; i<rbts.length; i++) {
+            if (rbts[i].checked) {
+            let v = n.value;
+            switch(rbts[i].value) {
+                case "us":
+                f.innerHTML = "US tel: " + 
+                        `(${v.slice(0,3)}) ${v.slice(3,6)}-${v.slice(6,10)}`;
+                    break;
+                case "fr":
+                f.innerHTML = "FR tel: " + 
+                        `${v.slice(0,2)}.${v.slice(2,4)}.${v.slice(4,6)}.${v.slice(6,8)}.${v.slice(8,10)}`;
+                    break;
+                case "ssn":
+                f.innerHTML = "US SS: " + v;
+                        //`${v.slice(0,3)}-${v.slice(3,5)}-${v.slice(5,9)}`;
+                    break;
+                }
+                break;
+             }
+         }
+    }
+
+    function fmtSS(event) {
+        if (event.key == "Enter" || event.key == "Backspace" || event.key == "Delete"){
+            return;
+        }
+        event.preventDefault();
+        let t = event.target;
+        if(t.value.length > 10) {
+            return;
+        }
+        t.value += event.key;
+
+        if (t.value.length == 3 || t.value.length == 6) {
+                t.value += "-";
+        }
+     }
+
+    </script>
+</body>
+
+</html>
+
+
