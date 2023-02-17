@@ -20,7 +20,7 @@
     </div>
    <div id="inp">
     <label id="inp-label" for="number"></label>
-    <input type="text" id="forms"><br>
+    <input type="text" id="forms" maxlength="10" onkeypress='validate(event)'><br>
     <button onclick="formatNums()">Enter</button>
    </div>  
    <div id="format"></div>
@@ -55,6 +55,9 @@
                 n.removeEventListener("keydown",fmtSS);
                 break;
         }
+
+        // Clear input when switching between options
+        //n.value = "";
     }
 
     function formatNums() {
@@ -99,9 +102,24 @@
         }
      }
 
+     function validate(evt) {
+  var theEvent = evt || window.event;
+
+  // if they want to paste info
+  if (theEvent.type === 'paste') {
+      key = event.clipboardData.getData('text/plain');
+  } else {
+  // Handle key press
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode(key);
+  }
+  var numon = /[0-9]|\./;
+  if( !numon.test(key) ) {
+    theEvent.returnValue = false;
+    if(theEvent.preventDefault) theEvent.preventDefault();
+  }
+}
+
     </script>
 </body>
-
 </html>
-
-
