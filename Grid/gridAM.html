@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid</title>
+    <style>
+        #container {
+            display: grid;
+            grid-template-columns: 150px 2fr;
+            grid-template-rows: 4em 1fr 2em;
+            grid-template-areas: "header header"
+                                 "left content"
+                                 "footer footer";           
+        }
+        #header {
+            grid-area: header;
+            background-color: rgba(0, 128, 0, 0.3);
+            text-align: center;
+        }
+
+        #leftside {
+            grid-area: left;
+            background-color: rgb(164, 200, 188);
+    
+        }
+
+        #rightside {
+            grid-area: right;
+            background-color:rgb(132, 172, 167);
+        }
+
+        #content {
+            grid-area: content;
+            background-color: rgb(132, 172, 167);
+            text-align: center;
+        }
+
+
+        #footer {
+            grid-area: footer;
+            background-color: rgb(171, 208, 185);
+            align-self:baseline;
+            text-align: end;
+        }
+
+        img {
+            width:400px;
+        }
+
+        a.menuList{text-decoration: none; color: grey;}
+        a.activePage{ color: rgb(70, 105, 70); border-bottom: solid; border-width: 3px;}
+
+
+
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="header">
+        <h1>Maya Sankoh </h1>
+    </div>
+    <div id="leftside">
+    <ul><a href="gridAM.html" class ="menuList activePage" target="_blank">Home</a></ul>
+    <ul><a href="pages/likes.html" class="menuList" target="_blank">Hobbies</a></ul>
+    <ul><a href="pages/favsites.html" class="menuList" target="_blank">Favorite Sites</a></ul>
+    <ul><a href="pages/sp.html" class="menuList" target="_blank">Senior Project Progress</a></ul>
+    </div>
+
+    <div id="content">
+        <h2>I am from San Diego, CA, USA </h2>
+        <img src="images/aboutme.png"><br>
+    </div>
+    <div id="rightside"></div>
+    <div id="footer">
+        <p>Copyright &copy; Maya Sankoh</p>
+    </div>
+    
+</div>
+    
+</body>
+</html>
