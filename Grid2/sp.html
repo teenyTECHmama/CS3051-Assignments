@@ -1,0 +1,113 @@
+<style>
+  #container {
+            display: grid;
+            grid-template-columns: 150px 2fr;
+            grid-template-rows: 4em 1fr 2em;
+            grid-template-areas: "header header"
+                                 "left content"
+                                 "footer footer";           
+        }
+        #header {
+            grid-area: header;
+            background-color: rgba(0, 128, 0, 0.3);
+            text-align: center;
+        }
+
+        #leftside {
+            grid-area: left;
+            background-color: rgb(164, 200, 188);
+    
+        }
+
+        #rightside {
+            grid-area: right;
+            background-color:rgb(132, 172, 167);
+        }
+
+        #content {
+            grid-area: content;
+            background-color: rgb(132, 172, 167);
+            text-align: center;
+        }
+
+
+        #footer {
+            grid-area: footer;
+            background-color: rgb(171, 208, 185);
+            align-self:baseline;
+            text-align: end;
+        }
+
+        img {
+            width:400px;
+        }
+
+        th, td {
+            border: 2px solid black;
+        }
+
+        a.menuList{text-decoration: none; color: grey;}
+        a.activePage{ color:rgb(70, 105, 70); border-bottom: solid; border-width: 3px;}
+    
+    </style>
+
+<body>
+<div id="container">
+<div id="header">
+    <h1>Maya Sankoh </h1>
+</div>
+<div id="leftside">
+    <ul><a href="gridAM.html" class ="menuList" id="lk1" onclick="pressedHome()">Home</a></ul>
+    <ul><a href="likes.html" class="menuList" id="lk2" onclick="pressedLikes()">Hobbies</a></ul>
+    <ul><a href="favsites.html" class="menuList"id="lk3" onclick="pressedSites()">Favorite Sites</a></ul>
+    <ul><a href="sp.html" class="menuList  activePage" id="lk4" onclick="pressedSenpro()">Senior Project Progress</a></ul>
+    </div>
+
+<div id="content">
+    <h2>8-bit breadboard computer build </h2>
+    <table align="center">
+        <caption> Senior Project Progress Report:</caption>
+        <tr>
+            <th> Project Build</th>
+            <th> Start date</th>
+            <th> Completion</th>
+        </tr>
+        <tr>
+            <td> Clock Module</td>
+            <td> March 2022</td>
+            <td> April 2022</td>
+        </tr>
+        <tr>
+            <td> A, B, & Instruction registers</td>
+            <td> April 2022</td>
+            <td> April 2022</td>
+        </tr>
+        <tr>
+            <td> Arithmetic & Logic Unit</td>
+            <td> April 2022</td>
+            <td> February 2023</td>
+        </tr>
+        <tr>
+            <td>Random Access Memory</td>
+            <td>April 2022</td>
+            <td>May 2022</td>
+        </tr>
+        <tr>
+            <td>Program Counter</td>
+            <td>May 2022</td>
+            <td>May 2022</td>
+        </tr>
+        <tr>
+            <td>Output & Control Logic</td>
+            <td>May 2022</td>
+            <td>TBD</td>
+        </tr>
+    </table> <br>
+    <img src="senproj.png" alt="Photo of memory registers built with red LEDs and on breadboards"><br>
+</div>
+<div id="rightside"></div>
+<div id="footer">
+    <p>Copyright &copy; Maya Sankoh</p>
+</div>
+
+</div>
