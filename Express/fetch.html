@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width">
+
+<title>Fetch test</title>
+
+</head>
+
+<style>
+
+body{
+
+background-image: url("https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")
+
+}
+
+button{
+
+align-items: center;
+
+background-color: #fee6e3;
+
+border: 2px solid #111;
+
+border-radius: 8px;
+
+box-sizing: border-box;
+
+color: #111;
+
+cursor: pointer;
+
+display: inline-block;
+
+font-family: Inter,sans-serif;
+
+font-size: 16px;
+
+height: 48px;
+
+justify-content: center;
+
+line-height: 24px;
+
+max-width: 300%;
+
+padding: 0 25px;
+
+position: relative;
+
+text-align: center;
+
+text-decoration: none;
+
+user-select: none;
+
+-webkit-user-select: none;
+
+touch-action: manipulation;
+
+}
+
+
+
+
+</style>
+
+<body>
+
+<button id='b' onclick="pressed()">Click me</button>
+
+<div id='response'></div>
+
+<section></section>
+
+<script>
+
+function pressed(event) {
+
+fetch("/images")
+
+.then(function (response) { return response.text(); })
+
+.then(function (data) {
+
+document.querySelector('#response').innerHTML = data;
+
+});
+
+}
+
+
+
+</script>
+
+</body>
+
+</html>
+
