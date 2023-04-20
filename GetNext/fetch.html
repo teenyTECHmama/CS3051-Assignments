@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>List 5-letter words</title>
+    <style>
+        #container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr;
+            grid-template-areas:"lheader header rheader"
+                                "left content right"
+                                "leftft footer rightft";
+        }
+
+        #lhd{
+            grid-area: lheader;
+        } 
+
+        #hd{
+            grid-area: header;
+        } 
+
+        #rhd{
+            grid-area: rheader;
+        } 
+
+        #ls {
+            grid-area: left;
+        }
+
+        #rs {
+            grid-area: right;
+        }
+
+        #ct {
+            grid-area: content;
+            text-align: center;
+        }
+
+
+        button {
+
+            align-items: center;
+
+            background-color: #fee6e3;
+
+            border: 2px solid #111;
+
+            border-radius: 8px;
+
+            box-sizing: border-box;
+
+            color: #111;
+
+            cursor: pointer;
+
+            display: inline-block;
+
+            font-family: Inter,sans-serif;
+
+            font-size: 16px;
+
+            height: 48px;
+
+            justify-content: center;
+
+            line-height: 24px;
+
+            max-width: 300%;
+
+            padding: 0 25px;
+
+            position: relative;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            user-select: none;
+
+            -webkit-user-select: none;
+
+            touch-action: manipulation;
+
+        }
+
+        #leftbt {      
+        }
+
+        #rightbt {
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div id="container">
+
+        <div id="lhd">
+            <input type ="radio" id="eng" name="lang" value="EN">
+            <label for="eng"> English</label><br>
+            <input type ="radio" id="fr" name="lang" value="FR">
+            <label for="fr"> French</label><br>
+            <input type ="radio" id="sp" name="lang" value="SP">
+            <label for="eng"> Spanish</label><br>
+
+        </div>
+
+        <div id="hd">
+
+        </div>
+
+        <div id="rhd">
+
+        </div>
+
+        <div id="ls">
+            <button id="leftbt" onclick="pressedPrev()">Previous</button>
+        </div>
+
+        <div id="rs">
+            <button id="rightbt" onclick="PressedNext()">Next</button>
+        </div>
+
+        <div id="ct">
+
+        </div>
+
+    </div>
+
+    <script>
+        // keep track of your current position in the list
+        // and pass it to the server along with if you want
+        // to get the next set or previous set of words (based
+        // on which button was clicked)
+        const choices = document.querySelectorAll("#lhd input");
+        for(let i=0; i<choices.length; i++) {
+            choices[i].addEventListener("clcik",isChecked)
+        }
+
+
+
+        function isChecked(event){
+            const c = document.querSelector("#ct");// need to find a way to make the file contents an array and spit back 20 at a time
+            const t = event.target;
+            switch(t.values){
+                case "EN":
+                    fetch("/english")
+                        .then(function(response) { return response.text(maxlength(20));})
+                        .then (function (data) {
+                                document.querySelector('#content').innerHTML = data;
+                            });
+                    break;
+                    case "FR":
+                    fetch("/french")
+                        .then(function(response) { return response.text(maxlength(20));})
+                        .then (function (data) {
+                                document.querySelector('#content').innerHTML = data;
+                            });
+                    break;
+                    case "SP":
+                    fetch("/spanish")
+                        .then(function(response) { return response.text(maxlength(20));})
+                        .then (function (data) {
+                                document.querySelector('#content').innerHTML = data;
+                            });
+                    break;
+
+
+         
+            }
+        }
+
+
+        function pressedPrev(event){
+        }
+        function pressedNext(event){
+        }
+    </script>
+</body>
+
+</html>
