@@ -9,23 +9,18 @@
         #container {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            grid-template-columns: 1fr;
-            grid-template-areas:"lheader header rheader"
+            grid-template-rows: 1fr 1fr 1fr;
+            grid-template-areas:"header header header"
                                 "left content right"
-                                "leftft footer rightft";
+                                ;
         }
 
-        #lhd{
-            grid-area: lheader;
-        } 
-
+        
         #hd{
             grid-area: header;
         } 
 
-        #rhd{
-            grid-area: rheader;
-        } 
+       
 
         #ls {
             grid-area: left;
@@ -87,10 +82,12 @@
 
         }
 
-        #leftbt {      
+        #leftbt {  
+                
         }
 
         #rightbt {
+           
         }
 
     </style>
@@ -100,21 +97,13 @@
 <body>
     <div id="container">
 
-        <div id="lhd">
-            <input type ="radio" id="eng" name="lang" value="EN">
+        <div id="hd">
+            <input onclick="isChecked()" type="radio" id="eng" name="lang" value="EN">
             <label for="eng"> English</label><br>
             <input type ="radio" id="fr" name="lang" value="FR">
             <label for="fr"> French</label><br>
             <input type ="radio" id="sp" name="lang" value="SP">
             <label for="eng"> Spanish</label><br>
-
-        </div>
-
-        <div id="hd">
-
-        </div>
-
-        <div id="rhd">
 
         </div>
 
@@ -126,9 +115,7 @@
             <button id="rightbt" onclick="PressedNext()">Next</button>
         </div>
 
-        <div id="ct">
-
-        </div>
+        <div id="ct"></div>
 
     </div>
 
@@ -137,9 +124,9 @@
         // and pass it to the server along with if you want
         // to get the next set or previous set of words (based
         // on which button was clicked)
-        const choices = document.querySelectorAll("#lhd input");
+        const choices = document.querySelectorAll("#hd");
         for(let i=0; i<choices.length; i++) {
-            choices[i].addEventListener("clcik",isChecked)
+            choices[i].addEventListener("click",isChecked);
         }
 
 
@@ -150,23 +137,23 @@
             switch(t.values){
                 case "EN":
                     fetch("/english")
-                        .then(function(response) { return response.text(maxlength(20));})
+                        .then(function(response) { return response.text();})
                         .then (function (data) {
-                                document.querySelector('#content').innerHTML = data;
+                                document.querySelector('#ct').innerHTML = data;
                             });
                     break;
                     case "FR":
                     fetch("/french")
-                        .then(function(response) { return response.text(maxlength(20));})
+                        .then(function(response) { return response.text();})
                         .then (function (data) {
-                                document.querySelector('#content').innerHTML = data;
+                                document.querySelector('#ct').innerHTML = data;
                             });
                     break;
                     case "SP":
                     fetch("/spanish")
-                        .then(function(response) { return response.text(maxlength(20));})
+                        .then(function(response) { return response.text();})
                         .then (function (data) {
-                                document.querySelector('#content').innerHTML = data;
+                                document.querySelector('#ct').innerHTML = data;
                             });
                     break;
 
@@ -177,8 +164,27 @@
 
 
         function pressedPrev(event){
+            let index = 0;
+
+            
         }
-        function pressedNext(event){
+        var index = 0;
+        pressedPrev = (event) = {
+            fetch(`/prevwords/?index=${index}`)
+            .then(response => response.json())
+            .then( (data) => {
+                document.querySelectorAll('#ct').innerHTML = data.words;
+                index = data.index;
+            });
+        }
+
+        pressedNext = (event) = {
+            fetch(`/nextwords/?index=${index}`)
+            .then(response => response.json())
+            .then( (data) => {
+                document.querySelectorAll('#ct').innerHTML = data.words;
+                index = data.index;
+            });
         }
     </script>
 </body>
