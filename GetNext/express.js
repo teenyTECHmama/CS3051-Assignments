@@ -34,6 +34,34 @@ app.get('/spanish', function(req, res) {
         });
     
 app.get('/nextwords', (req, res) => {
-    
-})
+    let i = Number(rea.query.index);
+    let words = [];
+
+    if(req.query.forwards=="true") {
+        let targetI = i + 20;
+
+        for(let ix = i; ix<targetI;ix++) {
+            if(i>=wordlist.length){
+                i = 0;
+            }
+
+            words.push((wordlist[i] + "/n"))
+        };
+    }
+    else {
+        let targetI = i - 20;
+        for( let ix = i; ix > targetI; ix--) {
+            if(i<=0){
+                i = wordlist.length-1;
+
+            }
+            words.push((wordlist[i] + "/n"));
+            i--;
+        };
+    }
+    res.json({"words" : words,
+"index" : i});
+res.end();
+
+});
         
