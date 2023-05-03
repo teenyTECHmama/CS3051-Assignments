@@ -167,20 +167,20 @@
             
         }
         var index = 0;
-        pressedPrev = (event) = {
+        pressedPrev = (event) => {
             fetch(`/prevwords/?index=${index}`)
             .then(response => response.json())
             .then( (data) => {
-                document.querySelectorAll('#ct').innerHTML = data.words;
+                document.querySelector('#ct').innerHTML = data.words;
                 index = data.index;
             });
         }
 
-        pressedNext = (event) = {
+        pressedNext = (event) => {
             fetch(`/nextwords/?index=${index}`)
             .then(response => response.json())
             .then( (data) => {
-                document.querySelectorAll('#ct').innerHTML = data.words;
+                document.querySelector('#ct').innerHTML = data.words;
                 index = data.index;
             });
         }

@@ -6,7 +6,15 @@ const port = 8080;
 
 const path = require('path')
 
+app.get('/', (req,res) => {
+    res.sendFile(path.join(__dirname,'fetch.html'));
+});
 
+const fs =require('fs');
+let wordlist = [];
+fs.readFile(path.join(__dirname, 'enwords.txt'), 'utf8',function(err, data) {
+    wordlist = data.split('/n');
+});
 
 let server = app.listen(port, function() {
 
@@ -45,7 +53,7 @@ app.get('/nextwords', (req, res) => {
                 i = 0;
             }
 
-            words.push((wordlist[i] + "/n"))
+            words.push((wordlist[i] + "/n")) // need to increment I
         };
     }
     else {
