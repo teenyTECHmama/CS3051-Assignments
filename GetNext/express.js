@@ -13,7 +13,7 @@ app.get('/', (req,res) => {
 const fs =require('fs');
 let wordlist = [];
 fs.readFile(path.join(__dirname, 'enwords.txt'), 'utf8',function(err, data) {
-    wordlist = data.split('/n');
+    wordlist = data.split('\n');
 });
 
 let server = app.listen(port, function() {
@@ -42,34 +42,35 @@ app.get('/spanish', function(req, res) {
         });
     
 app.get('/nextwords', (req, res) => {
-    let i = Number(rea.query.index);
+    let i = Number(req.query.index);
     let words = [];
+    let targetI = 0;
 
     if(req.query.forwards=="true") {
-        let targetI = i + 20;
+        targetI = i + 20;
 
         for(let ix = i; ix<targetI;ix++) {
-            if(i>=wordlist.length){
-                i = 0;
+            if(ix>=wordlist.length){
+                targetI = wordlist.length-1;  // set the index to return
+                break;  // don't want to go past the end of the list
+                // if you want to wrap, you have to change the limits of the loop
             }
-
-            words.push((wordlist[i] + "/n")) // need to increment I
+            words.push(wordlist[ix]);
         };
     }
     else {
-        let targetI = i - 20;
+        targetI = i - 20;
         for( let ix = i; ix > targetI; ix--) {
-            if(i<=0){
-                i = wordlist.length-1;
-
+            if(ix<0){
+                targetI = 0; // set the index to return
+                break;  // don't want to go past the beginning of the list
+                // if you want to wrap, you have to change the limits of the loop
             }
-            words.push((wordlist[i] + "/n"));
-            i--;
+            words.push(wordlist[ix]);
         };
     }
-    res.json({"words" : words,
-"index" : i});
-res.end();
+    res.json({"words" : words, "index" : targetI});
+    res.end();
 
 });
         

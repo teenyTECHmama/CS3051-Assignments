@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width">
     <title>List 5-letter words</title>
     <style>
+        /*
         #container {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -34,7 +35,7 @@
             grid-area: content;
             text-align: center;
         }
-
+        */
 
         button {
 
@@ -98,7 +99,7 @@
     <div id="container">
 
         <div id="hd">
-            <input onclick="isChecked()" type="radio" id="eng" name="lang" value="EN">
+            <input type="radio" id="eng" name="lang" value="EN">
             <label for="eng"> English</label><br>
             <input type ="radio" id="fr" name="lang" value="FR">
             <label for="fr"> French</label><br>
@@ -112,7 +113,7 @@
         </div>
 
         <div id="rs">
-            <button id="rightbt" onclick="PressedNext()">Next</button>
+            <button id="rightbt" onclick="pressedNext()">Next</button>
         </div>
 
         <div id="ct"></div>
@@ -124,7 +125,7 @@
         // and pass it to the server along with if you want
         // to get the next set or previous set of words (based
         // on which button was clicked)
-        const choices = document.querySelectorAll("#hd");
+        const choices = document.querySelectorAll("#hd input");
         for(let i=0; i<choices.length; i++) {
             choices[i].addEventListener("click",isChecked);
         }
@@ -132,9 +133,9 @@
 
 
         function isChecked(event){
-            const c = document.querSelector("#ct");// need to find a way to make the file contents an array and spit back 20 at a time
+            const c = document.querySelector("#ct");// need to find a way to make the file contents an array and spit back 20 at a time
             const t = event.target;
-            switch(t.values){
+            switch(t.value){
                 case "EN":
                     fetch("/english")
                         .then(function(response) { return response.text();})
@@ -161,14 +162,14 @@
         }
 
 
-        function pressedPrev(event){
-            let index = 0;
+        // function pressedPrev(event){
+        //     let index = 0;
 
             
-        }
+        // }
         var index = 0;
         pressedPrev = (event) => {
-            fetch(`/prevwords/?index=${index}`)
+            fetch(`/nextwords/?index=${index}&forwards=false`)
             .then(response => response.json())
             .then( (data) => {
                 document.querySelector('#ct').innerHTML = data.words;
@@ -177,7 +178,7 @@
         }
 
         pressedNext = (event) => {
-            fetch(`/nextwords/?index=${index}`)
+            fetch(`/nextwords/?index=${index}&forwards=true`)
             .then(response => response.json())
             .then( (data) => {
                 document.querySelector('#ct').innerHTML = data.words;
